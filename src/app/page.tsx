@@ -242,6 +242,7 @@ export default function TaxCalculator() {
           </div>
         )}
       </div>
+
     </div>
   );
 }

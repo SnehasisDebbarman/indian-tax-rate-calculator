@@ -53,9 +53,13 @@ export default function RootLayout({
 
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col justify-between`}
       >
         {children}
+
+        <footer className="text-center mb-2  w-full text-sm text-gray-500 p-2">
+          &copy; {new Date().getFullYear()} Snehasis Debbarman. All rights reserved.
+        </footer>
       </body>
     </html>
   );
