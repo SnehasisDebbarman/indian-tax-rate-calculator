@@ -13,8 +13,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Indian Tax Rate Calculator",
-  description: "Calculate your tax rates based on Indian tax slabs.",
+  title: 'Indian Tax Rate Calculator',
+  description: 'Calculate your tax rates based on Indian tax slabs.',
+  keywords: ['tax', 'income tax', 'india', 'calculator'],
+  viewport: 'width=device-width, initial-scale=1',
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Indian Tax Rate Calculator',
+    description: 'Calculate your tax rates based on Indian tax slabs.',
+    url: 'https://indian-tax-rate-calculator.vercel.app/',
+    type: 'website',
+    // images: [
+    //   {
+    //     url: '/path-to-your-image.jpg',
+    //     width: 800,
+    //     height: 600,
+    //     alt: 'Indian Tax Rate Calculator',
+    //   },
+    // ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Indian Tax Rate Calculator',
+    description: 'Calculate your tax rates based on Indian tax slabs.',
+    // images: ['/path-to-your-image.jpg'],
+  },
+
 };
 
 export default function RootLayout({
