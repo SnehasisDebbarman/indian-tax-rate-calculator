@@ -35,7 +35,7 @@ const chartConfig = {
 
 interface ComponentProps {
     data: { rate: string; tax: number }[];
-    income: number | undefined;
+    income: string | undefined;
     tax: number;
 }
 
@@ -88,7 +88,7 @@ export function Component({ data, income, tax }: ComponentProps) {
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
                 <div className="flex gap-2 font-medium leading-none">
-                    {(income ?? 0) > 0 ? ((tax / (income ?? 1)) * 100).toFixed(1) : 0}% of your income <TrendingUp className="h-4 w-4" />
+                    {Number(income ?? 0) > 0 ? ((tax / Number(income ?? 1)) * 100).toFixed(1) : 0}% of your income <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
                     {tax > 0 ? `You owe ${formatCurrency(tax)}` : "No tax"}

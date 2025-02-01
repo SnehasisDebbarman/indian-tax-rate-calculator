@@ -26,7 +26,7 @@ type Breakdown = {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#FF6B6B'];
 
 export default function TaxCalculator() {
-  const [income, setIncome] = useState<number | undefined>(undefined);
+  const [income, setIncome] = useState<string | undefined>("");
   const [tax, setTax] = useState(0);
   const [taxableIncome, setTaxableIncome] = useState(0);
   const [breakdowns, setBreakdowns] = useState<Breakdown[]>([]);
@@ -34,7 +34,7 @@ export default function TaxCalculator() {
 
   const calculateTax = () => {
     const standardDeduction = 75000;
-    const calculatedTaxableIncome = Math.max((income ?? 0) - standardDeduction, 0);
+    const calculatedTaxableIncome = Math.max((parseFloat(income ?? '0') - standardDeduction), 0);
     setTaxableIncome(calculatedTaxableIncome);
 
     const newBreakdowns: Breakdown[] = [];
@@ -108,6 +108,9 @@ export default function TaxCalculator() {
   };
 
   const formatCurrency = (amount: number): string => {
+    if (isNaN(amount)) {
+      return "0";
+    }
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
@@ -137,7 +140,7 @@ export default function TaxCalculator() {
                     <Input
                       type="number"
                       value={income ?? ''}
-                      onChange={(e) => setIncome(Number(e.target.value))}
+                      onChange={(e) => setIncome(e.target.value)}
                       placeholder="Enter annual income"
                       className="flex-1"
                     />
@@ -151,7 +154,7 @@ export default function TaxCalculator() {
                   <Card>
                     <CardContent className="pt-4">
                       <p className="text-sm text-gray-600">Gross Income</p>
-                      <p className="text-lg font-bold text-blue-600">{formatCurrency(income ?? 0)}</p>
+                      <p className="text-lg font-bold text-blue-600">{formatCurrency(parseFloat(income ?? '0'))}</p>
                     </CardContent>
                   </Card>
 
@@ -190,7 +193,7 @@ export default function TaxCalculator() {
                         </p>
                       )}
                       <p className="text-xs text-gray-500">
-                        ({(income ?? 0) > 0 ? ((tax / (income ?? 1)) * 100).toFixed(1) : 0}% of your total income)
+                        ({parseFloat(income ?? '0') > 0 ? ((tax / parseFloat(income ?? '1')) * 100).toFixed(1) : 0}% of your total income)
                       </p>
                     </CardContent>
                   </Card>
