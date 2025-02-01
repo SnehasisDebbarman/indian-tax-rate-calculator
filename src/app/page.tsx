@@ -77,10 +77,21 @@ export default function TaxCalculator() {
       }
     });
 
+    // Apply rebate if taxable income is below ₹12,00,000
     if (calculatedTaxableIncome <= 1200000) {
       calculatedRebate = totalTax;
       totalTax = 0;
       newBreakdowns.length = 0;
+    }
+
+    // Apply Education Cess (4%) if taxable income exceeds ₹13,00,000
+    if (calculatedTaxableIncome > 1300000) {
+      totalTax += totalTax * 0.04;
+    }
+
+    // Apply Surcharge (10%) if taxable income exceeds ₹60,00,000
+    if (calculatedTaxableIncome > 6000000) {
+      totalTax += totalTax * 0.10;
     }
 
     setShowBanner(true);
@@ -191,8 +202,19 @@ export default function TaxCalculator() {
                           (Rebate: {formatCurrency(rebate)})
                         </p>
                       )}
+                      {/* Display Surcharge and Education Cess */}
+                      {taxableIncome > 6000000 && (
+                        <p className="text-xs text-gray-500">
+                          (Surcharge: {formatCurrency(tax * 0.10)})
+                        </p>
+                      )}
+                      {taxableIncome > 1300000 && (
+                        <p className="text-xs text-gray-500">
+                          (Education Cess: {formatCurrency(tax * 0.04)})
+                        </p>
+                      )}
                       <p className="text-xs text-gray-500">
-                        ({(income ?? 0) > 0 ? ((tax / (income ?? 1)) * 100).toFixed(1) : 0}% of gross)
+                        ({(income ?? 0) > 0 ? ((tax / (income ?? 1)) * 100).toFixed(1) : 0}% of your total income)
                       </p>
                     </CardContent>
                   </Card>
@@ -209,8 +231,6 @@ export default function TaxCalculator() {
               </div>
             </CardContent>
           </Card>
-
-
         </div>
 
         {breakdowns.length > 0 && (
