@@ -31,7 +31,6 @@ export default function TaxCalculator() {
   const [taxableIncome, setTaxableIncome] = useState(0);
   const [breakdowns, setBreakdowns] = useState<Breakdown[]>([]);
   const [rebate, setRebate] = useState(0);
-  const [showBanner, setShowBanner] = useState(false);
 
   const calculateTax = () => {
     const standardDeduction = 75000;
@@ -94,8 +93,7 @@ export default function TaxCalculator() {
       totalTax += totalTax * 0.10;
     }
 
-    setShowBanner(true);
-    setTimeout(() => setShowBanner(false), 5000);
+
 
     setRebate(calculatedRebate);
     setTax(totalTax);
@@ -125,29 +123,7 @@ export default function TaxCalculator() {
           <h1 className="text-2xl md:text-4xl font-bold text-gray-900">Income Tax Calculator 2025</h1>
         </div>
 
-        {showBanner && (
-          <Alert variant="default" className="fixed top-4 right-4 w-96 border-l-4 border-blue-600 animate-in slide-in-from-top duration-500">
-            <AlertTitle>Tax Summary</AlertTitle>
-            <AlertDescription className="mt-2">
-              <div className="space-y-1">
-                <p className="text-gray-600">
-                  You owe{' '}
-                  <span className="font-bold text-blue-600">
-                    {formatCurrency(tax)}
-                  </span>
-                </p>
-                <p className="text-sm text-gray-500">
-                  This is {((tax / (income ?? 1)) * 100).toFixed(2)}% of your income
-                </p>
-                {rebate > 0 && (
-                  <p className="text-sm text-green-600">
-                    Rebate applied: {formatCurrency(rebate)}
-                  </p>
-                )}
-              </div>
-            </AlertDescription>
-          </Alert>
-        )}
+
 
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
           <Card className="shadow-lg">
